@@ -1,0 +1,791 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ahmed Mamdouh - Electronics & Communication Engineer & Data Analyst Portfolio</title>
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chart.js for Interactive Dashboards -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+        :root {
+            --bg-primary: #05050a;
+            --bg-secondary: rgba(20, 20, 35, 0.7);
+            --bg-card: rgba(20, 20, 35, 0.8);
+            --text-main: #00ffcc;
+            --text-muted: #a78bfa;
+            --accent: #ff007f;
+            --accent-glow: rgba(255, 0, 127, 0.3);
+            --border: #3b0764;
+            --card-hover: #00ffcc;
+        }
+
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --bg-card: #1e293b;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+            --accent: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.2);
+            --border: #334155;
+            --card-hover: #2563eb;
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f8fafc;
+            --bg-secondary: #ffffff;
+            --bg-card: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --accent: #2563eb;
+            --accent-glow: rgba(37, 99, 235, 0.15);
+            --border: #e2e8f0;
+            --card-hover: #1d4ed8;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            transition: background 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body {
+            background-color: var(--bg-primary);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* Navigation Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: var(--bg-secondary);
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 5%;
+            z-index: 1000;
+            backdrop-filter: blur(10px);
+        }
+
+        .logo {
+            font-weight: 800;
+            font-size: 1.25rem;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 15px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: var(--text-muted);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        nav ul li a:hover {
+            color: var(--accent);
+        }
+
+        .theme-selector {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            color: var(--text-main);
+            padding: 6px 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            outline: none;
+        }
+
+        /* Container */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 20px 60px 20px;
+        }
+
+        /* Top Skill & Contact Badge Card */
+        .profile-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 40px;
+            text-align: center;
+            box-shadow: 0 10px 30px var(--accent-glow);
+            margin-bottom: 40px;
+            position: relative;
+        }
+
+        .profile-card h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 800;
+        }
+
+        .profile-card p.subtitle {
+            font-size: 1.15rem;
+            color: var(--text-muted);
+            margin-bottom: 25px;
+        }
+
+        .contact-pills {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .pill {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 0.9rem;
+            color: var(--text-main);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+        }
+
+        .pill i {
+            color: var(--accent);
+        }
+
+        .pill:hover {
+            border-color: var(--accent);
+        }
+
+        .skills-grid-top {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .skill-badge {
+            background: var(--accent-glow);
+            color: var(--text-main);
+            border: 1px solid var(--accent);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        /* Live Analytics Showcase Section */
+        .section-title {
+            font-size: 1.8rem;
+            margin-bottom: 25px;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
+            border-left: 4px solid var(--accent);
+            padding-left: 12px;
+            flex-wrap: wrap;
+        }
+
+        .dashboard-showcase {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 30px;
+            margin-bottom: 50px;
+        }
+
+        .kpi-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .kpi-card {
+            background: var(--bg-primary);
+            border: 1px solid var(--border);
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+        }
+
+        .kpi-card h3 {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .kpi-card .value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: var(--accent);
+        }
+
+        .chart-container {
+            position: relative;
+            height: 300px;
+            width: 100%;
+        }
+
+        /* Projects & Certifications Sections */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 25px;
+            margin-bottom: 50px;
+        }
+
+        .project-card, .cert-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .cert-img, .proj-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border);
+            background: #111;
+        }
+
+        .cert-body, .proj-body {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            flex-grow: 1;
+        }
+
+        .project-card:hover, .cert-card:hover {
+            border-color: var(--accent);
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px var(--accent-glow);
+        }
+
+        .project-card h3, .cert-card h3 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--text-main);
+        }
+
+        .project-card p, .cert-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 15px;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            padding: 4px 10px;
+            background: var(--bg-primary);
+            color: var(--accent);
+            border-radius: 6px;
+            border: 1px solid var(--border);
+        }
+
+        .btn-link {
+            text-decoration: none;
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .section-action-btn {
+            font-size: 0.9rem;
+            background: var(--accent-glow);
+            border: 1px solid var(--accent);
+            color: var(--text-main);
+            padding: 8px 16px;
+            border-radius: 8px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .section-action-btn:hover {
+            background: var(--accent);
+            color: #000;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 30px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 0.9rem;
+        }
+
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+            .profile-card h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body data-theme="cyber">
+
+    <!-- Header Navigation -->
+    <header>
+        <div class="logo">
+            <i class="fa-solid fa-microchip"></i> Ahmed Mamdouh
+        </div>
+        <nav>
+            <ul>
+                <li><a href="#dashboard">Analytics</a></li>
+                <li><a href="#certifications">Certificates</a></li>
+                <li><a href="#excel">Excel</a></li>
+                <li><a href="#powerbi">Power BI</a></li>
+                <li><a href="#sql">SQL</a></li>
+                <li><a href="#datastudio">Data Studio</a></li>
+                <li><a href="#python">Python</a></li>
+                <li><a href="#tableau">Tableau</a></li>
+                <li><a href="#rlanguage">R Language</a></li>
+            </ul>
+        </nav>
+        <select class="theme-selector" id="themeSwitcher" onchange="switchTheme(this.value)">
+            <option value="cyber">Cyber Glassmorphism</option>
+            <option value="dark">Modern Tech Dark</option>
+            <option value="light">Sleek Minimal Light</option>
+        </select>
+    </header>
+
+    <div class="container">
+
+        <!-- Top Profile & Skill Card -->
+        <div class="profile-card">
+            <h1>Ahmed Mamdouh Samir Amin</h1>
+            <p class="subtitle"><i class="fa-solid fa-satellite-dish"></i> Electronics and Communication Engineer & Junior Data Analyst / BI Specialist</p>
+            
+            <div class="contact-pills">
+                <a href="tel:+201124372388" class="pill"><i class="fa-solid fa-phone"></i> +20 1124372388</a>
+                <a href="https://linkedin.com" target="_blank" class="pill"><i class="fa-brands fa-linkedin"></i> LinkedIn Profile</a>
+                <a href="mailto:contact@ahmedmamdouh.com" class="pill"><i class="fa-solid fa-envelope"></i> Email Contact</a>
+                <a href="https://drive.google.com/drive/folders/14TpeImUb6NW4SAjVORm262-T5eQaTM3-?usp=sharing" target="_blank" class="pill" style="border-color: var(--accent);"><i class="fa-solid fa-folder-open"></i> My Drive Portfolio Folder</a>
+            </div>
+
+            <div style="font-weight: 600; margin-bottom: 12px; color: var(--text-muted);">Core Technical Stack & Competencies:</div>
+            <div class="skills-grid-top">
+                <span class="skill-badge"><i class="fa-solid fa-check"></i> Microsoft Excel</span>
+                <span class="skill-badge"><i class="fa-solid fa-check"></i> Power BI</span>
+                <span class="skill-badge"><i class="fa-solid fa-check"></i> SQL</span>
+                <span class="skill-badge"><i class="fa-solid fa-check"></i> Python (Jupyter)</span>
+                <span class="skill-badge"><i class="fa-solid fa-check"></i> Tableau</span>
+                <span class="skill-badge"><i class="fa-solid fa-check"></i> R Language</span>
+                <span class="skill-badge"><i class="fa-solid fa-check"></i> Cleaning Data</span>
+            </div>
+        </div>
+
+        <!-- Live Analytics Showcase Section -->
+        <div id="dashboard" class="dashboard-showcase">
+            <h2 class="section-title"><i class="fa-solid fa-chart-line"></i> Analytics Showcase & Learning Milestones</h2>
+            <div class="kpi-row">
+                <div class="kpi-card">
+                    <h3>SQL Queries & Projects</h3>
+                    <div class="value">200+</div>
+                </div>
+                <div class="kpi-card">
+                    <h3>EDA Datasets Analyzed</h3>
+                    <div class="value">30+</div>
+                </div>
+                <div class="kpi-card">
+                    <h3>BI Dashboards Built</h3>
+                    <div class="value">12+</div>
+                </div>
+                <div class="kpi-card">
+                    <h3>VBA & Automation Scripts</h3>
+                    <div class="value">15+</div>
+                </div>
+            </div>
+            <div class="chart-container">
+                <canvas id="analyticsChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Certifications Gallery -->
+        <div id="certifications" class="section-title">
+            <span><i class="fa-solid fa-award"></i> Professional Certifications</span>
+            <a href="https://drive.google.com/drive/folders/1vPFmMHVry0aKApAyfxrlXdCy1uKJp43C?usp=sharing" target="_blank" class="section-action-btn">
+                <i class="fa-brands fa-google-drive"></i> View All Certificates Folder
+            </a>
+        </div>
+        <div class="projects-grid">
+            <div class="cert-card">
+                <img src="certificates/annova_learn.jpg" alt="Data Analysis Diploma - Annova Learn" class="cert-img" onerror="this.src='https://via.placeholder.com/400x200/101025/00ffcc?text=Annova+Learn+Diploma'">
+                <div class="cert-body">
+                    <h3>Data Analysis Diploma</h3>
+                    <p><strong>Issuer:</strong> Annova Learn & Youth Employment Agency (Cairo Governorate)<br>40 Training Hours intensive program in data analysis methodologies (Jul - Sep 2026).</p>
+                    <div class="card-footer">
+                        <span class="tag">Data Analysis Diploma</span>
+                        <a href="https://drive.google.com/file/d/1dPM97rhcRFJPuue8ksytSQIByjpjyUos/view?usp=drivesdk" target="_blank" class="btn-link">View Certificate <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cert-card">
+                <img src="certificates/embedded_diploma.jpg" alt="Embedded Systems Diploma" class="cert-img" onerror="this.src='https://via.placeholder.com/400x200/101025/00ffcc?text=Embedded+Diploma'">
+                <div class="cert-body">
+                    <h3>Embedded Systems Diploma</h3>
+                    <p><strong>Issuer:</strong> Professional Diploma Program<br>Graded across Tooling, Interfacing, and Problem Solving.</p>
+                    <div class="card-footer">
+                        <span class="tag">Embedded Systems</span>
+                        <a href="https://drive.google.com/file/d/1CC7KXsPGaqT-svvs6IKfiFRKDRfAJrhV/view?usp=drivesdk" target="_blank" class="btn-link">View Certificate <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cert-card">
+                <img src="certificates/iti_embedded.jpg" alt="ITI Embedded Systems Internship" class="cert-img" onerror="this.src='https://via.placeholder.com/400x200/101025/00ffcc?text=ITI+Embedded+Internship'">
+                <div class="cert-body">
+                    <h3>Embedded Systems Internship</h3>
+                    <p><strong>Issuer:</strong> Information Technology Institute (ITI)<br>Practical hands-on internship in embedded architecture.</p>
+                    <div class="card-footer">
+                        <span class="tag">ITI Internship</span>
+                        <a href="https://drive.google.com/file/d/1oI_J-0L2r6GRLiowOFHUNGzVvaj88zV7/view?usp=drivesdk" target="_blank" class="btn-link">View Certificate <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cert-card">
+                <img src="certificates/amit_avr.jpg" alt="AMIT Embedded System AVR" class="cert-img" onerror="this.src='https://via.placeholder.com/400x200/101025/00ffcc?text=AMIT+AVR+Microcontroller'">
+                <div class="cert-body">
+                    <h3>Embedded System AVR</h3>
+                    <p><strong>Issuer:</strong> AMIT & Egyptian Syndicate of Engineers<br>AVR Microcontrollers architecture and hardware programming.</p>
+                    <div class="card-footer">
+                        <span class="tag">AVR Microcontrollers</span>
+                        <a href="https://drive.google.com/file/d/1I7o3xHIxFve7-hmKsD6frVibtRLIy0C3/view?usp=drivesdk" target="_blank" class="btn-link">View Certificate <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cert-card">
+                <img src="certificates/python_iti.jpg" alt="Python Programming Basics" class="cert-img" onerror="this.src='https://via.placeholder.com/400x200/101025/00ffcc?text=ITI+Python+Basics'">
+                <div class="cert-body">
+                    <h3>Python Programming Basics</h3>
+                    <p><strong>Issuer:</strong> Information Technology Institute (ITI)<br>Core algorithms and Python fundamentals.</p>
+                    <div class="card-footer">
+                        <span class="tag">ITI Python</span>
+                        <a href="https://drive.google.com/file/d/1g0R4n1zyUJs1Nu-AeqpG2bcqkMz89WPg/view?usp=drivesdk" target="_blank" class="btn-link">View Certificate <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cert-card">
+                <img src="certificates/network_security_iti.jpg" alt="Computer Network Security" class="cert-img" onerror="this.src='https://via.placeholder.com/400x200/101025/00ffcc?text=ITI+Network+Security'">
+                <div class="cert-body">
+                    <h3>Computer Network Security</h3>
+                    <p><strong>Issuer:</strong> ITI Platform<br>Network security protocols, firewalls, and cyber security basics.</p>
+                    <div class="card-footer">
+                        <span class="tag">Network Security</span>
+                        <a href="https://drive.google.com/file/d/1tnwGDr9z1zsmhmgYUkIHgoTb7ubp3Kto/view?usp=drivesdk" target="_blank" class="btn-link">View Certificate <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cert-card">
+                <img src="certificates/network_fundamentals_iti.jpg" alt="Computer Network Fundamentals" class="cert-img" onerror="this.src='https://via.placeholder.com/400x200/101025/00ffcc?text=ITI+Networking+Fundamentals'">
+                <div class="cert-body">
+                    <h3>Computer Network Fundamentals</h3>
+                    <p><strong>Issuer:</strong> ITI Platform<br>Network protocols, TCP/IP layers, and routing concepts.</p>
+                    <div class="card-footer">
+                        <span class="tag">Networking</span>
+                        <a href="https://drive.google.com/file/d/1QWyFWc8RT9NieIFaQshsfAtp_gHtzea-/view?usp=drivesdk" target="_blank" class="btn-link">View Certificate <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cert-card">
+                <img src="certificates/cloud_iti.jpg" alt="Cloud and Virtualization Concepts" class="cert-img" onerror="this.src='https://via.placeholder.com/400x200/101025/00ffcc?text=ITI+Cloud+Virtualization'">
+                <div class="cert-body">
+                    <h3>Cloud and Virtualization Concepts</h3>
+                    <p><strong>Issuer:</strong> ITI Platform<br>Cloud computing infrastructures, hypervisors, and virtualization.</p>
+                    <div class="card-footer">
+                        <span class="tag">Cloud Computing</span>
+                        <a href="https://drive.google.com/file/d/15HXm8TM6rPRoD5fUv6wydvpxDSZ3O2fr/view?usp=drivesdk" target="_blank" class="btn-link">View Certificate <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cert-card">
+                <img src="certificates/data_analysis_mcit.jpg" alt="Data Analysis Challenger Track" class="cert-img" onerror="this.src='https://via.placeholder.com/400x200/101025/00ffcc?text=MCIT+Udacity+Data+Analysis'">
+                <div class="cert-body">
+                    <h3>Data Analysis Challenger Track</h3>
+                    <p><strong>Issuer:</strong> MCIT Egypt & Udacity<br>Exploratory data analysis, stats, and visualization track.</p>
+                    <div class="card-footer">
+                        <span class="tag">Data Analysis</span>
+                        <a href="https://drive.google.com/file/d/17sPuZbEn0BDyltG-beRkdeHdWgFgvoSe/view?usp=drivesdk" target="_blank" class="btn-link">View Certificate <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cert-card">
+                <img src="certificates/python_edraak.jpg" alt="Introduction to Python Programming" class="cert-img" onerror="this.src='https://via.placeholder.com/400x200/101025/00ffcc?text=Edraak+Python+Certificate'">
+                <div class="cert-body">
+                    <h3>Introduction to Python Programming</h3>
+                    <p><strong>Issuer:</strong> Edraak (إدراك)<br>Fundamentals of program design and object-oriented logic.</p>
+                    <div class="card-footer">
+                        <span class="tag">Python</span>
+                        <a href="https://drive.google.com/file/d/1nPWvE6RwFDzN_oaFVYsjiIzVFrRXXtvu/view?usp=drivesdk" target="_blank" class="btn-link">View Certificate <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="cert-card">
+                <img src="certificates/html_cert.jpg" alt="HTML Fundamentals" class="cert-img" onerror="this.src='https://via.placeholder.com/400x200/101025/00ffcc?text=HTML+Fundamentals'">
+                <div class="cert-body">
+                    <h3>HTML Fundamentals</h3>
+                    <p><strong>Issuer:</strong> Eslam Hussien<br>Certificate of participation in structuring web layouts.</p>
+                    <div class="card-footer">
+                        <span class="tag">HTML</span>
+                        <a href="https://drive.google.com/file/d/1dS3u57kbUmoeR3wnq4VyrCdv_FaxOn_t/view?usp=drivesdk" target="_blank" class="btn-link">View Certificate <i class="fa-solid fa-arrow-up-right-from-square"></i></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Excel Projects Section -->
+        <div id="excel" class="section-title">
+            <span><i class="fa-solid fa-file-excel"></i> Excel Projects</span>
+            <a href="https://drive.google.com/drive/folders/10gzdB1svII6WCbPWBOwX3R8LA2tjq80E" target="_blank" class="section-action-btn">
+                <i class="fa-brands fa-google-drive"></i> Open Excel Folder
+            </a>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card">
+                <img src="projects/rest_furniture.png" alt="Rest Furniture Analysis Dashboard" class="proj-img" onerror="this.src='https://via.placeholder.com/400x200/101025/00ffcc?text=Rest+Furniture+Dashboard'">
+                <div class="proj-body">
+                    <h3>Rest Furniture Sales & Regional Dashboard - Project (1)</h3>
+                    <p>Advanced Excel Pivot Tables and Interactive Dashboard analyzing Rest Furniture sales (5.25M+ total revenue, 3,031 items), regional performance across Cairo, Giza, Alex, Tanta & Assiut.</p>
+                    <div class="card-footer">
+                        <span class="tag">Excel Project (1)</span>
+                        <a href="https://drive.google.com/drive/folders/1y-sOIZL0gYE_OD-WEgOhPOvkPintuxPO" target="_blank" class="btn-link">Open Project (1) <i class="fa-solid fa-folder-open"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project-card" style="padding: 25px;">
+                <h3>Advanced Excel Business Analysis - Project (2)</h3>
+                <p>Data cleaning, formulas, dynamic KPIs, and interactive reporting suite built in Excel.</p>
+                <div class="card-footer" style="margin-top: 20px;">
+                    <span class="tag">Excel Project (2)</span>
+                    <a href="https://drive.google.com/drive/folders/1Y7GuMFhGps0M9cCZlH3eLo0QGQrIN9Op" target="_blank" class="btn-link">Open Project (2) <i class="fa-solid fa-folder-open"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Power BI Projects Section -->
+        <div id="powerbi" class="section-title">
+            <span><i class="fa-solid fa-chart-pie"></i> Power BI Projects</span>
+            <a href="https://drive.google.com/drive/folders/1NemQAGYv6l7pfqSF40n7RUdSbdAcKrW9" target="_blank" class="section-action-btn">
+                <i class="fa-brands fa-google-drive"></i> Open Power BI Folder
+            </a>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card" style="padding: 25px;">
+                <h3>Power BI Dashboards Suite - Project (1)</h3>
+                <p>Comprehensive Power BI reports analyzing regional metrics, driver performance, cancellation reasons, and executive KPIs.</p>
+                <div class="card-footer" style="margin-top: 20px;">
+                    <span class="tag">Power BI Project (1)</span>
+                    <a href="https://drive.google.com/drive/folders/1Q9ueGnwLLlY8aRBPLZpkHk2b9ktD1LIS" target="_blank" class="btn-link">Open Project (1) <i class="fa-solid fa-folder-open"></i></a>
+                </div>
+            </div>
+
+            <div class="project-card" style="padding: 25px;">
+                <h3>Interactive BI Dashboard & DAX Models - Project (2)</h3>
+                <p>Advanced relational data modeling, custom DAX measures, and visual analytical storytelling in Power BI.</p>
+                <div class="card-footer" style="margin-top: 20px;">
+                    <span class="tag">Power BI Project (2)</span>
+                    <a href="https://drive.google.com/drive/folders/1S7Jep44TZMUhNk3MbvFrAeIpIOOIBmDS" target="_blank" class="btn-link">Open Project (2) <i class="fa-solid fa-folder-open"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- SQL Projects Section -->
+        <div id="sql" class="section-title">
+            <span><i class="fa-solid fa-database"></i> SQL Projects</span>
+            <a href="https://drive.google.com/drive/folders/14yG3bhDliTN2FR6zQFOepBEjEig9Ez2m" target="_blank" class="section-action-btn">
+                <i class="fa-brands fa-google-drive"></i> Open SQL Folder
+            </a>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card" style="padding: 25px;">
+                <h3>Relational Database & Complex Queries - Project (4)</h3>
+                <p>Advanced SQL script collection, relational schema creation, aggregate functions, subqueries, and database optimization techniques.</p>
+                <div class="card-footer" style="margin-top: 20px;">
+                    <span class="tag">PostgreSQL / SQL</span>
+                    <a href="https://drive.google.com/drive/folders/1L-ufIs-Xx1lw-EVT4rQCZwUCS53cGayH" target="_blank" class="btn-link">Open SQL Project (4) <i class="fa-solid fa-folder-open"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Data Studio Section -->
+        <div id="datastudio" class="section-title">
+            <span><i class="fa-solid fa-chart-column"></i> Data Studio Projects</span>
+            <a href="https://drive.google.com/drive/folders/1Juvq5E9BnfKBiekdbRrQtfAmIaoT5bwJ" target="_blank" class="section-action-btn">
+                <i class="fa-brands fa-google-drive"></i> Open Data Studio Folder
+            </a>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card" style="padding: 25px;">
+                <h3>Google Data Studio Dashboards</h3>
+                <p>Interactive web-based business intelligence reports and real-time visualization dashboards built with Google Data Studio.</p>
+                <div class="card-footer" style="margin-top: 20px;">
+                    <span class="tag">Data Studio</span>
+                    <a href="https://drive.google.com/drive/folders/1Juvq5E9BnfKBiekdbRrQtfAmIaoT5bwJ" target="_blank" class="btn-link">Open Data Studio Folder <i class="fa-solid fa-folder-open"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Python Projects Section -->
+        <div id="python" class="section-title">
+            <span><i class="fa-brands fa-python"></i> Python Projects</span>
+            <a href="https://drive.google.com/drive/folders/1brQ3tT22PuAJkUGdaoJgyqHIm28ABdsu" target="_blank" class="section-action-btn">
+                <i class="fa-brands fa-google-drive"></i> Open Python Folder
+            </a>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card" style="padding: 25px;">
+                <h3>Jupyter Notebooks & EDA Analysis</h3>
+                <p>Exploratory data analysis notebooks utilizing Pandas and Polars for feature extraction and statistical correlation case studies.</p>
+                <div class="card-footer" style="margin-top: 20px;">
+                    <span class="tag">Jupyter / Pandas</span>
+                    <a href="https://drive.google.com/drive/folders/1brQ3tT22PuAJkUGdaoJgyqHIm28ABdsu" target="_blank" class="btn-link">Open Python Folder <i class="fa-solid fa-folder-open"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Tableau Projects Section -->
+        <div id="tableau" class="section-title">
+            <span><i class="fa-solid fa-chart-area"></i> Tableau Projects</span>
+            <a href="https://drive.google.com/drive/folders/11tUfiLtUR8M-XEHbl95eDxxHPN9PjcbK" target="_blank" class="section-action-btn">
+                <i class="fa-brands fa-google-drive"></i> Open Tableau Folder
+            </a>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card" style="padding: 25px;">
+                <h3>Tableau Visual Storyboards</h3>
+                <p>Interactive Tableau visual dashboards, metrics visualization, and executive reporting storyboards.</p>
+                <div class="card-footer" style="margin-top: 20px;">
+                    <span class="tag">Tableau</span>
+                    <a href="https://drive.google.com/drive/folders/11tUfiLtUR8M-XEHbl95eDxxHPN9PjcbK" target="_blank" class="btn-link">Open Tableau Folder <i class="fa-solid fa-folder-open"></i></a>
+                </div>
+            </div>
+        </div>
+
+        <!-- R Language Projects Section -->
+        <div id="rlanguage" class="section-title">
+            <span><i class="fa-solid fa-square-root-variable"></i> R Language Projects</span>
+            <a href="https://drive.google.com/drive/folders/181vslJKc7QstQCj9FA-FsNiFxnmZa5Sn" target="_blank" class="section-action-btn">
+                <i class="fa-brands fa-google-drive"></i> Open R Language Folder
+            </a>
+        </div>
+        <div class="projects-grid">
+            <div class="project-card" style="padding: 25px;">
+                <h3>R Language Statistical Modeling</h3>
+                <p>Statistical computations, data cleaning scripts, and advanced data modeling scripts developed using R Language.</p>
+                <div class="card-footer" style="margin-top: 20px;">
+                    <span class="tag">R Language</span>
+                    <a href="https://drive.google.com/drive/folders/181vslJKc7QstQCj9FA-FsNiFxnmZa5Sn" target="_blank" class="btn-link">Open R Language Folder <i class="fa-solid fa-folder-open"></i></a>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <p>&copy; 2026 Ahmed Mamdouh Samir Amin. All Rights Reserved. | Electronics & Communication Engineer & Junior Data Analyst</p>
+    </footer>
+
+    <!-- JavaScript Interactivity -->
+    <script>
+        // Theme Switcher Function
+        function switchTheme(themeName) {
+            document.body.setAttribute('data-theme', themeName);
+            localStorage.setItem('portfolio_theme', themeName);
+        }
+
+        // Load saved theme on startup (Default Cyber)
+        window.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('portfolio_theme') || 'cyber';
+            document.body.setAttribute('data-theme', savedTheme);
+            document.getElementById('themeSwitcher').value = savedTheme;
+        });
+
+        // Chart.js Live Analytics Rendering (Project Metrics Overview)
+        const ctx = document.getElementById('analyticsChart').getContext('2d');
+        const analyticsChart = new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Project 1', 'Project 2', 'Project 3', 'Project 4', 'Project 5', 'Project 6'],
+                datasets: [{
+                    label: 'EDA & Model Data Processing Rate (Rows)',
+                    data: [5000, 12000, 18000, 25000, 32000, 45000],
+                    borderColor: '#00ffcc',
+                    backgroundColor: 'rgba(0, 255, 204, 0.1)',
+                    borderWidth: 3,
+                    fill: true,
+                    tension: 0.4
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: { labels: { color: getComputedStyle(document.body).getPropertyValue('--text-main') } }
+                },
+                scales: {
+                    x: { ticks: { color: '#a78bfa' }, grid: { color: 'rgba(255,255,255,0.05)' } },
+                    y: { ticks: { color: '#a78bfa' }, grid: { color: 'rgba(255,255,255,0.05)' } }
+                }
+            }
+        });
+    </script>
+</body>
+</html>
